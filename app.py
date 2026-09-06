@@ -2,8 +2,8 @@
 import gradio as gr
 from transformers import pipeline
 
-# load the pre-trained sentiment analysis model
-sentiment_analyzer = pipeline("sentiment-analysis")
+# load the pre-trained sentiment analysis model for Hinglish
+sentiment_analyzer = pipeline("sentiment-analysis", model="shae2977/xlm-roberta-hinglish-sentiment-analysis")
 
 # define the function that will wrap our model
 def analyze_sentiment(text):
@@ -14,10 +14,10 @@ def analyze_sentiment(text):
 # create the Gradio Interface
 iface = gr.Interface(
     fn=analyze_sentiment,
-    inputs=gr.Textbox(lines=2, placeholder="Enter a sentence here..."),
+    inputs=gr.Textbox(lines=2, placeholder="Type a sentence in Hinglish (e.g. yeh product bilkul bakwas hai)..."),
     outputs="label",
-    title="Sentiment Analysis Bot",
-    description="Type in a sentence and see if the model thinks it's POSITIVE or NEGATIVE. Built with Gradio and Hugging Face Transformers."
+    title="Hinglish Sentiment Analysis Bot",
+    description="Type in a Hinglish sentence to see if it's Positive, Negative or Neutral. Built with Gradio and Hugging Face Transformers."
 )
 
 if __name__ == "__main__":
