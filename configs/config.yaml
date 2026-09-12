@@ -1,0 +1,55 @@
+model:
+  name: "l3cube-pune/hing-roberta"
+  fallback_name: "shae2977/xlm-roberta-hinglish-sentiment-analysis"
+  max_sequence_length: 128
+  batch_size: 16
+  device: "cpu"
+  onnx_export_path: "models/hinglish_sentiment.onnx"
+  quantized_onnx_path: "models/hinglish_sentiment_int8.onnx"
+
+thresholds:
+  confidence_threshold: 0.60
+  cmi_high_threshold: 30.0
+
+aspects:
+  camera:
+    keywords: ["camera", "photo", "pic", "picture", "selfie", "clarity", "lens", "video", "sensor"]
+  battery:
+    keywords: ["battery", "charging", "charger", "backup", "drain", "mah", "discharge", "power"]
+  performance:
+    keywords: ["performance", "speed", "lag", "hang", "processor", "ram", "gaming", "smooth", "slow", "fast"]
+  display:
+    keywords: ["screen", "display", "amoled", "brightness", "panel", "touch", "refresh rate", "hz"]
+  delivery:
+    keywords: ["delivery", "rider", "courier", "package", "time", "late", "delay", "pahuncha", "shipping"]
+  food:
+    keywords: ["food", "khana", "taste", "swaad", "portion", "quantity", "dish", "meal", "biryani", "roti", "chai"]
+  service:
+    keywords: ["service", "staff", "behavior", "support", "helpdesk", "customer care", "waiter", "attitude"]
+  price:
+    keywords: ["price", "paisa", "daam", "rate", "cost", "cheap", "expensive", "sasta", "mehnga", "worth", "value"]
+
+sarcasm:
+  positive_markers:
+    - "wah"
+    - "waah"
+    - "shabaash"
+    - "shabash"
+    - "kya baat"
+    - "great job"
+    - "bohot khoob"
+    - "superb"
+    - "congratulations"
+    - "mubarak"
+  incongruity_triggers:
+    - "ghante baad"
+    - "hours late"
+    - "cold food"
+    - "thanda"
+    - "tuta hua"
+    - "broken"
+    - "kharab"
+    - "never delivered"
+    - "bilkul bekaar"
+    - "paisa barbad"
+    - "loot liya"

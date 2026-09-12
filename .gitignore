@@ -8,5 +8,18 @@ venv/
 env/
 .env/
 
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Model artifacts
+models/*.onnx
+models/*.pt
+models/*.bin
+
 # Gradio flags
 flagged/
+
+# Local submodules / external dirs
+bengaluru-housing-api/
