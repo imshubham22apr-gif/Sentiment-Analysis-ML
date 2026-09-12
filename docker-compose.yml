@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  hinglish-nlp-api:
+    build: .
+    container_name: hinglish-nlp-api
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - LOG_LEVEL=info
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  hinglish-nlp-dashboard:
+    build: .
+    container_name: hinglish-nlp-dashboard
+    ports:
+      - "7860:7860"
+    command: ["python", "app.py"]
+    depends_on:
+      - hinglish-nlp-api
+    restart: unless-stopped
