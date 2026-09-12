@@ -81,27 +81,27 @@ The pipeline decouples linguistic conditioning, aspect extraction, and tensor in
 
 ```mermaid
 flowchart TD
-    subgraph INGESTION["1. Ingestion & Validation"]
+    subgraph S1["1. Ingestion & Validation"]
         A["Incoming Request (Raw Text)"] --> B["Pydantic v2 Schema Validator"]
         B --> C["Input Sanitization & Length Guard"]
     end
 
-    subgraph PREPROCESSING["2. Linguistic Engineering"]
+    subgraph S2["2. Linguistic Engineering"]
         C --> D["HinglishNormalizer"]
-        D --> D1["Elongation Compressor (bhaaaai -> bhai)"]
+        D --> D1["Elongation Compressor (bhaaaai → bhai)"]
         D --> D2["Phonetic & Slang Lexicon Mapping"]
         D1 --> E["Normalized Text"]
         D2 --> E
         E --> F["Code-Mixing Index (CMI) Profiler"]
     end
 
-    subgraph MULTI_TASK["3. Linguistic & Affective Analysis"]
+    subgraph S3["3. Linguistic & Affective Analysis"]
         E --> G["Clause Slicer & Conjunctive Splitter"]
         G --> H["Aspect-Based Sentiment (ABSA)"]
         E --> I["Affective Incongruity Sarcasm Engine"]
     end
 
-    subgraph INFERENCE["4. Hybrid Multi-Engine Inference"]
+    subgraph S4["4. Hybrid Multi-Engine Inference"]
         E --> J{"Inference Engine Selector"}
         J -->|ONNX Runtime| K["INT8 Dynamic Quantized Graph (182MB)"]
         J -->|PyTorch Pipeline| L["L3Cube-HingBERT / MuRIL (FP32)"]
@@ -111,27 +111,20 @@ flowchart TD
         M --> N
     end
 
-    subgraph CALIBRATION["5. Post-Processing & Calibration"]
+    subgraph S5["5. Post-Processing & Calibration"]
         N --> O["Negation Scope Verifier"]
         I -->|Sarcasm Signal| P["Affective Polarity Inverter"]
         O --> P
         P --> Q["Calibrated Sentiment & Confidence"]
     end
 
-    subgraph SERVING["6. Unified Serving Layer"]
+    subgraph S6["6. Unified Serving Layer"]
         F --> R["Unified Response Payload"]
         H --> R
         Q --> R
         R --> S["FastAPI Microservice (:8000)"]
         R --> T["Gradio 6.0 Interactive UI (:7860)"]
     end
-
-    style INGESTION fill:#f8f9fa,stroke:#343a40,stroke-width:1px
-    style PREPROCESSING fill:#e8f4f8,stroke:#17a2b8,stroke-width:1px
-    style MULTI_TASK fill:#fff3cd,stroke:#ffc107,stroke-width:1px
-    style INFERENCE fill:#d4edda,stroke:#28a745,stroke-width:1px
-    style CALIBRATION fill:#f8d7da,stroke:#dc3545,stroke-width:1px
-    style SERVING fill:#e2e3e5,stroke:#6c757d,stroke-width:1px
 ```
 
 ---
